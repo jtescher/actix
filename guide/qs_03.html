@@ -1,0 +1,352 @@
+<!DOCTYPE HTML>
+<html lang="en" class="sidebar-visible no-js">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Actor - Actix</title>
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="Actix framework guide">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+        <base href="">
+
+        <link rel="stylesheet" href="book.css">
+        <link href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css">
+        <link href="https://fonts.googleapis.com/css?family=Source+Code+Pro:500" rel="stylesheet" type="text/css">
+
+        <link rel="shortcut icon" href="favicon.png">
+
+        <!-- Font Awesome -->
+        <link rel="stylesheet" href="_FontAwesome/css/font-awesome.css">
+
+        <link rel="stylesheet" href="highlight.css">
+        <link rel="stylesheet" href="tomorrow-night.css">
+        <link rel="stylesheet" href="ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+        
+
+        
+
+    </head>
+    <body class="light">
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script type="text/javascript">
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script type="text/javascript">
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { } 
+            if (theme === null || theme === undefined) { theme = 'light'; }
+            document.body.className = theme;
+            document.querySelector('html').className = theme + ' js';
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script type="text/javascript">
+            var html = document.querySelector('html');
+            var sidebar = 'hidden';
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <ol class="chapter"><li><a href="qs_01.html"><strong aria-hidden="true">1.</strong> Quickstart</a></li><li><a href="qs_02.html"><strong aria-hidden="true">2.</strong> Getting Started</a></li><li><a href="qs_03.html" class="active"><strong aria-hidden="true">3.</strong> Actor</a></li><li><a href="qs_04.html"><strong aria-hidden="true">4.</strong> Address</a></li><li><a href="qs_05.html"><strong aria-hidden="true">5.</strong> Context</a></li><li><a href="qs_06.html"><strong aria-hidden="true">6.</strong> Arbiter</a></li><li><a href="qs_07.html"><strong aria-hidden="true">7.</strong> SyncArbiter</a></li><li><a href="qs_08.html"><strong aria-hidden="true">8.</strong> Stream</a></li><li><a href="qs_09.html"><strong aria-hidden="true">9.</strong> IO helpers</a></li><li><a href="qs_10.html"><strong aria-hidden="true">10.</strong> Supervisor</a></li><li><a href="qs_11.html"><strong aria-hidden="true">11.</strong> Registry</a></li><li><a href="qs_12.html"><strong aria-hidden="true">12.</strong> Helper actors</a></li></ol>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                
+                <div id="menu-bar" class="menu-bar">
+                    <div id="menu-bar-sticky-container">
+                        <div class="left-buttons">
+                            <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                                <i class="fa fa-bars"></i>
+                            </button>
+                            <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                                <i class="fa fa-paint-brush"></i>
+                            </button>
+                            <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                                <li role="none"><button role="menuitem" class="theme" id="light">Light <span class="default">(default)</span></button></li>
+                                <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                                <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                                <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                                <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                            </ul>
+                            
+                            <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                                <i class="fa fa-search"></i>
+                            </button>
+                            
+                        </div>
+
+                        <h1 class="menu-title">Actix</h1> 
+
+                        <div class="right-buttons">
+                            <a href="print.html" title="Print this book" aria-label="Print this book">
+                                <i id="print-button" class="fa fa-print"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" name="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+                
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script type="text/javascript">
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <a class="header" href="qs_03.html#actor" id="actor"><h1>Actor</h1></a>
+<p>Actix is a rust library providing a framework for developing concurrent applications.</p>
+<p>Actix is built on the <a href="https://en.wikipedia.org/wiki/Actor_model">Actor Model</a> which
+allows applications to be written as a group of independently executing but cooperating
+&quot;Actors&quot; which communicate via messages. Actors are objects which encapsulate
+state and behavior and run within the <em>Actor System</em> provided by the actix library.</p>
+<p>Actors run within a specific execution context <a href="../actix/struct.Context.html"><em>Context<A></em></a>.
+The context object is available only during execution. Each actor has a separate
+execution context. The execution context also controls the lifecycle of an actor.</p>
+<p>Actors communicate exclusively by exchanging messages. The sending actor can
+wait for the response. Actors are not referenced directly, but by different
+types of addresses: non thread safe <a href="../actix/struct.Addr.html"><em>Addr&lt;Unsync, A&gt;</em></a> or
+thread safe <a href="../actix/struct.Syn.html"><em>Addr&lt;Syn, A&gt;</em></a></p>
+<p>Any rust type can be an actor, it only needs to implement the <a href="../actix/trait.Actor.html"><em>Actor</em></a> trait.</p>
+<p>To be able to handle a specific message the actor has to provide a
+<a href="../actix/trait.Handler.html"><em>Handler<M></em></a> implementation for this message. All messages
+are statically typed. The message can be handled in an asynchronous fashion.
+Actor can spawn other actors or add futures or streams to execution context.
+The <code>Actor</code> trait provides several methods that allow controlling the actor's lifecycle.</p>
+<a class="header" href="qs_03.html#actor-lifecycle" id="actor-lifecycle"><h2>Actor lifecycle</h2></a>
+<a class="header" href="qs_03.html#started" id="started"><h3>Started</h3></a>
+<p>An actor always starts in the <code>Started</code> state. During this state  the actor's <code>started()</code>
+method is called. The <code>Actor</code> trait provides a default implementation for this method.
+The actor context is available during this state and the actor can start more actors or register
+async streams or do any other required configuration.</p>
+<a class="header" href="qs_03.html#running" id="running"><h3>Running</h3></a>
+<p>After an Actor's <code>started()</code> method is called, the actor transitions to the <code>Running</code> state.
+The Actor can stay in <code>running</code> state indefinitely long.</p>
+<a class="header" href="qs_03.html#stopping" id="stopping"><h3>Stopping</h3></a>
+<p>The Actor's execution state changes to the <code>stopping</code> state in the following situations:</p>
+<ul>
+<li><code>Context::stop</code> is called by the actor itself</li>
+<li>all addresses to the actor get dropped. i.e. no other actor references it.</li>
+<li>no event objects are registered in the context.</li>
+</ul>
+<p>An actor can restore from the <code>stopping</code> state to the <code>running</code> state by creating a new
+address or adding an event object, and by returning <code>Running::Continue</code>.</p>
+<p>If an actor changed state to <code>stopping</code> because <code>Context::stop()</code> is called
+then the context immediately stops processing incoming messages and calls
+<code>Actor::stopping()</code>. If the actor does not restore back to the <code>running</code> state, all
+unprocessed messages are dropped.</p>
+<p>By default this method returns <code>Running::Stop</code> which confirms the stop operation.</p>
+<a class="header" href="qs_03.html#stopped" id="stopped"><h3>Stopped</h3></a>
+<p>If the actor does not modify the execution context during the stopping state, the actor state changes
+to <code>Stopped</code>. This state is considered final and at this point the actor is dropped.</p>
+<a class="header" href="qs_03.html#message" id="message"><h2>Message</h2></a>
+<p>An Actor communicates with other actors by sending messages. In actix all
+messages are typed. A message can be any rust type which implements the
+<a href="../actix/trait.Message.html">Message</a> trait. <em>Message::Result</em> defines the return type.
+Let's define a simple <code>Ping</code> message - an actor which will accept this message needs to return
+<code>io::Result&lt;bool&gt;</code>.</p>
+<pre><pre class="playpen"><code class="language-rust"># extern crate actix;
+use std::io;
+use actix::prelude::*;
+
+struct Ping;
+
+impl Message for Ping {
+    type Result = Result&lt;bool, io::Error&gt;;
+}
+
+# fn main() {}
+</code></pre></pre>
+<a class="header" href="qs_03.html#spawning-an-actor" id="spawning-an-actor"><h2>Spawning an actor</h2></a>
+<p>How to start an actor depends on its context. Spawning a new async actor
+is achieved via the <code>start</code> and <code>create</code> methods of
+the <a href="../actix/trait.Actor.html">Actor</a> trait. It provides several different ways of
+creating actors; for details check the docs.</p>
+<a class="header" href="qs_03.html#complete-example" id="complete-example"><h2>Complete example</h2></a>
+<pre><pre class="playpen"><code class="language-rust"># extern crate actix;
+# extern crate futures;
+use std::io;
+use actix::prelude::*;
+use futures::Future;
+
+/// Define message
+struct Ping;
+
+impl Message for Ping {
+    type Result = Result&lt;bool, io::Error&gt;;
+}
+
+
+// Define actor
+struct MyActor;
+
+// Provide Actor implementation for our actor
+impl Actor for MyActor {
+    type Context = Context&lt;Self&gt;;
+
+    fn started(&amp;mut self, ctx: &amp;mut Context&lt;Self&gt;) {
+       println!(&quot;Actor is alive&quot;);
+    }
+
+    fn stopped(&amp;mut self, ctx: &amp;mut Context&lt;Self&gt;) {
+       println!(&quot;Actor is stopped&quot;);
+    }
+}
+
+/// Define handler for `Ping` message
+impl Handler&lt;Ping&gt; for MyActor {
+    type Result = Result&lt;bool, io::Error&gt;;
+
+    fn handle(&amp;mut self, msg: Ping, ctx: &amp;mut Context&lt;Self&gt;) -&gt; Self::Result {
+        println!(&quot;Ping received&quot;);
+
+        Ok(true)
+    }
+}
+
+fn main() {
+    let sys = System::new(&quot;example&quot;);
+
+    // Start MyActor in current thread
+    let addr: Addr&lt;Unsync, _&gt; = MyActor.start();
+
+    // Send Ping message.
+    // send() message returns Future object, that resolves to message result
+    let result = addr.send(Ping);
+
+    // spawn future to reactor
+    Arbiter::handle().spawn(
+        result.map(|res| {
+            match res {
+                Ok(result) =&gt; println!(&quot;Got result: {}&quot;, result),
+                Err(err) =&gt; println!(&quot;Got error: {}&quot;, err),
+            }
+#           Arbiter::system().do_send(actix::msgs::SystemExit(0));
+        })
+        .map_err(|e| {
+            println!(&quot;Actor is probably died: {}&quot;, e);
+        }));
+
+    sys.run();
+}
+</code></pre></pre>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                        
+                            <a rel="prev" href="qs_02.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+                        
+
+                        
+                            <a rel="next" href="qs_04.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+                        
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                
+                    <a href="qs_02.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+                
+
+                
+                    <a href="qs_04.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+                
+            </nav>
+
+        </div>
+
+        
+
+        
+        <!-- Google Analytics Tag -->
+        <script type="text/javascript">
+            var localAddrs = ["localhost", "127.0.0.1", ""];
+
+            // make sure we don't activate google analytics if the developer is
+            // inspecting the book locally...
+            if (localAddrs.indexOf(document.location.hostname) === -1) {
+                (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+                (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+                m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+                })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+                ga('create', 'UA-110322332-1', 'auto');
+                ga('send', 'pageview');
+            }
+        </script>
+        
+
+        
+
+        
+
+        
+        <script src="searchindex.js" type="text/javascript" charset="utf-8"></script>
+        
+        
+        <script src="elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="mark.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="searcher.js" type="text/javascript" charset="utf-8"></script>
+        
+
+        <script src="clipboard.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="highlight.js" type="text/javascript" charset="utf-8"></script>
+        <script src="book.js" type="text/javascript" charset="utf-8"></script>
+
+        <!-- Custom JS scripts -->
+        
+
+    </body>
+</html>
